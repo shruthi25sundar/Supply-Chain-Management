@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile
     environment:
       GROQ_API_KEY: "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"
-      DATA_PATH: "data/data.csv"
+      DATA_PATH: "Data/supplier_contracts_dataset.csv"
     ports:
       - "${APP_PORT:-5000}:5000"
     depends_on:
