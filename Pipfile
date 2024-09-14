@@ -8,6 +8,9 @@ groq = "*"
 scikit-learn = "*"
 pandas = "*"
 flask = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

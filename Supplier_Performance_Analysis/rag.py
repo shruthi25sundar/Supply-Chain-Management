@@ -112,7 +112,7 @@ def evaluate_relevance(question, answer):
 def calculate_openai_cost(model, tokens):
     openai_cost = 0
 
-    if model == "gemma-7b-it": 
+    if model == "llama3-8b-8192": 
         openai_cost = (
             tokens["prompt_tokens"] * 0.00015 + tokens["completion_tokens"] * 0.0006
         ) / 1000
@@ -121,7 +121,7 @@ def calculate_openai_cost(model, tokens):
 
     return openai_cost
 
-def rag(query, model='gemma-7b-it'):
+def rag(query, model='llama3-8b-8192'):
     t0 = time()
 
     # Search for high-risk contracts (you can modify filter_dict based on needs)
