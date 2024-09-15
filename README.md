@@ -32,7 +32,7 @@ Includes detailed information about supplier contracts, such as:
 3. Quality Issues, Supply Chain Disruptions, Increased Costs, Compliance and Legal Risks
 4. Missed Opportunities, Damaged Relationships, Quality Metrics, Delivery Metrics, Cost Metrics, Relationship Metrics
 
-### End to End Rag Project**
+### End to End Rag Project
 
 ### Methodologies
 
