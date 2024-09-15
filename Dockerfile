@@ -9,7 +9,7 @@ COPY ["Pipfile", "Pipfile.lock", "./"]
 
 RUN pipenv install --deploy --ignore-pipfile --system
 
-COPY Supplier_Performance_Analysis .
+COPY supply_chain_management .
 
 EXPOSE 5000
 

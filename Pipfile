@@ -12,6 +12,7 @@ psycopg2-binary = "*"
 python-dotenv = "*"
 streamlit = "*"
 gunicorn = "*"
+pgcli = "*"
 
 [dev-packages]
 

@@ -12,15 +12,11 @@ index = ingest.load_index()
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Function to perform the search on supplier contracts based on query
-def search(query, filter_dict=None, max_results=10):
-    # Assuming df is a pre-existing dataframe containing supplier contracts
-    # Filter the DataFrame based on risk level (if provided)
-    if filter_dict:
-        filtered_df = df[df['risk_level'] == filter_dict.get('risk_level', '')]
-    else:
-        filtered_df = df
-    # Convert the filtered data to a list of dictionaries and limit the number of results
-    results = filtered_df.to_dict(orient='records')[:max_results]
+def search(query):
+
+    results = index.search(
+        query=query, filter_dict={},num_results=10
+    )
     return results
 
 # Prompt templates
@@ -112,7 +108,7 @@ def evaluate_relevance(question, answer):
 def calculate_openai_cost(model, tokens):
     openai_cost = 0
 
-    if model == "llama3-8b-8192": 
+    if model == "Llama3-groq-70b-8192-tool-use-preview": 
         openai_cost = (
             tokens["prompt_tokens"] * 0.00015 + tokens["completion_tokens"] * 0.0006
         ) / 1000
@@ -121,11 +117,11 @@ def calculate_openai_cost(model, tokens):
 
     return openai_cost
 
-def rag(query, model='llama3-8b-8192'):
+def rag(query, model='Llama3-groq-70b-8192-tool-use-preview'):
     t0 = time()
 
     # Search for high-risk contracts (you can modify filter_dict based on needs)
-    search_results = search(query, filter_dict={'risk_level': 'High'})
+    search_results = search(query)
     
     # Build the prompt using the search results
     prompt = build_prompt(query, search_results)

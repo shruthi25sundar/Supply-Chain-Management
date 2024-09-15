@@ -13,6 +13,6 @@ url = "http://localhost:5000/question"
 data = {"question": question}
 
 response = requests.post(url, json=data)
-# print(response.content)
+# # print(response.content)
 
 print(response.json())
