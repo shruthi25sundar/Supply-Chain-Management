@@ -40,7 +40,7 @@ def init_db():
                     eval_prompt_tokens INTEGER NOT NULL,
                     eval_completion_tokens INTEGER NOT NULL,
                     eval_total_tokens INTEGER NOT NULL,
-                    openai_cost FLOAT NOT NULL,
+                    groqai_cost FLOAT NOT NULL,
                     timestamp TIMESTAMP WITH TIME ZONE NOT NULL
                 )
             """)
@@ -69,7 +69,7 @@ def save_conversation(conversation_id, question, answer_data, timestamp=None):
                 INSERT INTO conversations 
                 (id, question, answer, model_used, response_time, relevance, 
                 relevance_explanation, prompt_tokens, completion_tokens, total_tokens, 
-                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens, openai_cost, timestamp)
+                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens, groqai_cost, timestamp)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
@@ -86,7 +86,7 @@ def save_conversation(conversation_id, question, answer_data, timestamp=None):
                     answer_data["eval_prompt_tokens"],
                     answer_data["eval_completion_tokens"],
                     answer_data["eval_total_tokens"],
-                    answer_data["openai_cost"],
+                    answer_data["groqai_cost"],
                     timestamp
                 ),
             )
@@ -168,7 +168,7 @@ def check_timezone():
                 INSERT INTO conversations 
                 (id, question, answer, model_used, response_time, relevance, 
                 relevance_explanation, prompt_tokens, completion_tokens, total_tokens, 
-                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens, openai_cost, timestamp)
+                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens, groqai_cost, timestamp)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING timestamp;
             """, 

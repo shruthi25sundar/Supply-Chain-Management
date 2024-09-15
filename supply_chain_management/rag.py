@@ -2,8 +2,6 @@ import ingest
 import os
 import json
 from time import time
-
-# Assuming Groq API is similar to OpenAI's usage
 from groq import Groq
 
 index = ingest.load_index()
@@ -11,15 +9,12 @@ index = ingest.load_index()
 # Initialize Groq API client
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-# Function to perform the search on supplier contracts based on query
 def search(query):
-
     results = index.search(
-        query=query, filter_dict={},num_results=10
+        query=query, filter_dict={}, num_results=10
     )
     return results
 
-# Prompt templates
 prompt_template = """
 You're a contract advisor. Answer the QUESTION based on the CONTEXT from our supplier contracts database.
 Use only the facts from the CONTEXT when answering the QUESTION.
@@ -43,36 +38,26 @@ Supply_Chain_Disruption: {supply_chain_disruption}
 Cost_Metrics: {cost_metrics}
 """.strip()
 
-# Function to build a clear prompt for Groq API
 def build_prompt(query, search_results):
     context = ""
-    
     for doc in search_results:
         context += entry_template.format(**doc) + "\n\n"
-
     prompt = prompt_template.format(question=query, context=context).strip()
     return prompt
 
-# Function to call the LLM (Groq API)
 def llm(prompt, model='Llama3-groq-70b-8192-tool-use-preview'):
-    # Assuming client is the Groq API client instance
     response = client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
         model=model
     )
-    
     answer = response.choices[0].message.content
-
-    # Assuming Groq API gives token usage details (adapt if necessary)
     token_stats = {
         "prompt_tokens": response.usage.prompt_tokens,
         "completion_tokens": response.usage.completion_tokens,
         "total_tokens": response.usage.total_tokens,
     }
-
     return answer, token_stats
 
-# Evaluation prompt template
 evaluation_prompt_template = """
 You are an expert evaluator for a RAG system.
 Your task is to analyze the relevance of the generated answer to the given question.
@@ -93,11 +78,9 @@ and provide your evaluation in parsable JSON without using code blocks:
 }}
 """.strip()
 
-# Function to evaluate the relevance of the generated answer
 def evaluate_relevance(question, answer):
     prompt = evaluation_prompt_template.format(question=question, answer=answer)
     evaluation, tokens = llm(prompt, model='Llama3-groq-70b-8192-tool-use-preview')
-
     try:
         json_eval = json.loads(evaluation)
         return json_eval, tokens
@@ -105,43 +88,29 @@ def evaluate_relevance(question, answer):
         result = {"Relevance": "UNKNOWN", "Explanation": "Failed to parse evaluation"}
         return result, tokens
 
-def calculate_openai_cost(model, tokens):
-    openai_cost = 0
-
+def calculate_groq_cost(model, tokens):
+    groq_cost = 0
     if model == "Llama3-groq-70b-8192-tool-use-preview": 
-        openai_cost = (
+        groq_cost = (
             tokens["prompt_tokens"] * 0.00015 + tokens["completion_tokens"] * 0.0006
         ) / 1000
     else:
-        print("Model not recognized. OpenAI cost calculation failed.")
-
-    return openai_cost
+        print("Model not recognized. Groq cost calculation failed.")
+    return groq_cost
 
 def rag(query, model='Llama3-groq-70b-8192-tool-use-preview'):
     t0 = time()
-
-    # Search for high-risk contracts (you can modify filter_dict based on needs)
     search_results = search(query)
-    
-    # Build the prompt using the search results
     prompt = build_prompt(query, search_results)
-    
-    # Get the LLM response based on the prompt
     answer, token_stats = llm(prompt, model=model)
-
-    # Evaluate the relevance of the generated answer
     relevance, rel_token_stats = evaluate_relevance(query, answer)
-
     t1 = time()
     took = t1 - t0
 
-    # Calculate cost for RAG and evaluation
-    groq_cost_rag = calculate_groq_cost(token_stats)
-    groq_cost_eval = calculate_groq_cost(rel_token_stats)
+    groq_cost_rag = calculate_groq_cost(model, token_stats)
+    groq_cost_eval = calculate_groq_cost(model, rel_token_stats)
+    groqai_cost = groq_cost_rag + groq_cost_eval
 
-    total_cost = groq_cost_rag + groq_cost_eval
-
-    # Gather all relevant data
     answer_data = {
         "answer": answer,
         "model_used": model,
@@ -154,7 +123,6 @@ def rag(query, model='Llama3-groq-70b-8192-tool-use-preview'):
         "eval_prompt_tokens": rel_token_stats["prompt_tokens"],
         "eval_completion_tokens": rel_token_stats["completion_tokens"],
         "eval_total_tokens": rel_token_stats["total_tokens"],
-        "total_cost": total_cost,
+        "groqai_cost": groqai_cost,
     }
-
     return answer_data
