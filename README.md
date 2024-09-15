@@ -3,16 +3,23 @@
 ![Supplier_management_image_Feb_17__1_](https://github.com/user-attachments/assets/fa6a82f9-1690-4f58-89ea-acfb27e23c82)
 
 
-**Purpose**
+### Purpose
 The primary goal of this analysis is to leverage Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs) to enhance the evaluation and management of supplier performance. By integrating advanced natural language processing techniques, the analysis aims to provide insightful and actionable answers to various queries related to suppliers, compliance issues, cost metrics, and other performance indicators.
 
-##Problem Statement
+### Problem Statement
 Managing supplier performance involves handling vast amounts of data and addressing numerous factors that can impact the overall supply chain efficiency. Traditional methods of performance evaluation can be time-consuming and may not provide comprehensive insights. This analysis addresses the following challenges:
 
 1. Data Overload: Large volumes of data from multiple suppliers need to be processed and analyzed efficiently.
 2. Complex Queries: Answering specific and complex questions about supplier performance, compliance, and risk management can be difficult with traditional methods.
 3. Timely Decision-Making: The need for quick and accurate decision-making based on the latest supplier data.
 4. Risk Mitigation: Identifying and mitigating risks related to compliance, quality issues, and supply chain disruptions.
+
+### What it Solves
+1. Efficient Data Processing: RAG and LLMs can handle large datasets and retrieve relevant information quickly, allowing for efficient data processing and analysis.
+2. Enhanced Query Resolution: These models can generate accurate and detailed answers to specific questions regarding supplier performance, compliance issues, cost metrics, and other key terms.
+3. Improved Decision-Making: By providing timely and precise insights, the analysis supports better decision-making processes, helping to address issues proactively.
+4. Risk Identification and Management: The analysis helps identify potential risks and suggests measures to mitigate them, ensuring a more resilient supply chain.
+5. Strategic Negotiations: Insights from the analysis can guide negotiation strategies with suppliers, focusing on key terms, compliance monitoring, and performance improvements.
 
 
 **Dataset Overview**
@@ -194,11 +201,6 @@ To run the application locally, start only PostgreSQL and Grafana using Docker C
 docker-compose up postgres grafana
 ```
 
-If you previously started all applications with Docker Compose, stop the `app` service:
-
-```bash
-docker-compose stop app
-```
 
 Then run the app on your host machine:
 
@@ -211,42 +213,6 @@ export POSTGRES_HOST=localhost
 python app.py
 ```
 
-**Running with Docker (without Compose)**
-
-To run the application in Docker without Docker Compose, follow these steps:
-
-1. Prepare the environment by running Docker Compose as in the previous section.
-2. Build the Docker image:
-
-   ```bash
-   docker build -t Supply-Chain-Management .
-   ```
-
-3. Run the Docker container:
-
-   ```bash
-   docker run -it --rm \
-       --network="Supply-Chain-Management_default" \
-       --env-file=".env" \
-       -e GROQ_API_KEY=${GROQ_API_KEY} \
-       -e DATA_PATH="Data/supplier_contracts_dataset.csv" \
-       -p 5000:5000 \
-       Supply-Chain-Management
-   ```
-
-### Time Configuration
-
-Ensure the timestamps are correct when inserting logs into the database. You can check and change the timezone by modifying the `TZ` variable in `.env`.
-
-If the clock in Docker gets out of sync with the host system, you can sync the clock:
-
-```bash
-wsl
-
-sudo apt install ntpdate
-sudo ntpdate time.windows.com
-```
-
 ### Using the Application
 
 **CLI**
@@ -257,19 +223,18 @@ Start the interactive CLI application:
 pipenv run python cli.py
 ```
 
-You can also make it randomly select a question from the ground truth dataset:
+![image](https://github.com/user-attachments/assets/292361a2-e783-4f3a-b632-85af91bdb0ae)
 
-```bash
-pipenv run python cli.py --random
-```
 
-**Using `requests`**
 
-Use `requests` to send questions to the running application:
+]![image](https://github.com/user-attachments/assets/299b86ae-2719-4cca-a589-8cd99aacce52)
 
-```bash
-pipenv run python test.py
-```
+
+
+![image](https://github.com/user-attachments/assets/c67f4fe2-1191-4ce1-b69e-a326070c4649)
+
+
+
 
 ## Monitoring
 
@@ -284,3 +249,61 @@ It's accessible at [localhost:3000](http://localhost:3000):
 
 ![dashboard](https://github.com/user-attachments/assets/809aa2dd-33cb-4f78-9007-6f835df9fde7)
 
+
+### Insights
+
+
+#### What it Solves
+
+1. **Efficient Data Processing**: RAG and LLMs can handle large datasets and retrieve relevant information quickly, allowing for efficient data processing and analysis.
+2. **Enhanced Query Resolution**: These models can generate accurate and detailed answers to specific questions regarding supplier performance, compliance issues, cost metrics, and other key terms.
+3. **Improved Decision-Making**: By providing timely and precise insights, the analysis supports better decision-making processes, helping to address issues proactively.
+4. **Risk Identification and Management**: The analysis helps identify potential risks and suggests measures to mitigate them, ensuring a more resilient supply chain.
+5. **Strategic Negotiations**: Insights from the analysis can guide negotiation strategies with suppliers, focusing on key terms, compliance monitoring, and performance improvements.
+
+#### Benefits
+
+- **Operational Efficiency**: Streamlines the process of evaluating and managing supplier performance.
+- **Cost Savings**: Identifies areas for cost reduction and efficiency improvements.
+- **Risk Reduction**: Proactively addresses compliance and performance risks.
+- **Better Supplier Relationships**: Facilitates strategic negotiations and improves supplier relationships.
+
+By leveraging the power of RAG and LLMs, this analysis transforms the way supplier performance data is utilized, providing comprehensive insights and enhancing overall supply chain management.
+
+### Monitoring Dashboard
+
+### Response Time
+- **Response Time Graph**: The response time for the queries has been consistently low, mostly under 2 seconds, with one notable spike reaching slightly above 8 seconds around 17:00. This indicates the system generally responds quickly, but occasional delays may occur.
+
+### Relevance Distribution
+- **Relevance Metrics**:
+  - **Relevant**: 16 responses are marked as relevant.
+  - **Partly Relevant**: 1 response is marked as partly relevant.
+  - **Non-Relevant**: 2 responses are marked as non-relevant.
+
+  The majority of the responses are relevant, suggesting the system is performing well in terms of providing useful information.
+
+### Conversations Panel
+- **Question and Answer Pairs**:
+  - "high risk level" -> "Supplier 2482, Supplier 2481, Supplier 2480, Supplier"
+  - "how is past performance of supplier 2482" -> "The past performance of Supplier 2482 is poor."
+  - "what is the cost metric of supplier 2483" -> "The cost metric for Supplier 2483 is $56.32/unit."
+  - "Give supplier types, quality metrics, supply chain dis" -> "Supplier Types: Retailer, Manufacturer, Service Provider"
+  - "Which suppliers have the most non-compliance issues" -> "Supplier 637, Supplier 1488, Supplier 1450, Supplier"
+  - "Opportunity and Innovation Queries" -> "I'm sorry but I do not have the capability to perform th"
+
+  These questions and answers demonstrate the system's ability to handle diverse queries related to supplier performance, cost metrics, compliance issues, and general supplier information.
+
+### Feedback Statistics
+- **Thumbs Up**: 14
+- **Thumbs Down**: 3
+
+  The feedback statistics indicate that users have generally been satisfied with the responses, with a significant majority of positive feedback.
+
+### Summary
+- The system responds quickly to queries with occasional spikes in response time.
+- Most responses are marked as relevant, indicating high accuracy in information retrieval.
+- The system covers a range of supplier-related questions effectively.
+- User feedback is largely positive, which suggests good performance in meeting user expectations.
+
+These insights suggest that the monitoring system is functioning effectively, providing timely and relevant information to users, with room for occasional improvements to address response time spikes and ensure even higher relevance in responses.
