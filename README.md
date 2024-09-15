@@ -22,7 +22,7 @@ Managing supplier performance involves handling vast amounts of data and address
 5. Strategic Negotiations: Insights from the analysis can guide negotiation strategies with suppliers, focusing on key terms, compliance monitoring, and performance improvements.
 
 
-**Dataset Overview**
+### Dataset Overview
 
 **Supplier Contracts**:
 
@@ -32,9 +32,9 @@ Includes detailed information about supplier contracts, such as:
 3. Quality Issues, Supply Chain Disruptions, Increased Costs, Compliance and Legal Risks
 4. Missed Opportunities, Damaged Relationships, Quality Metrics, Delivery Metrics, Cost Metrics, Relationship Metrics
 
-**End to End Rag Project**
+### End to End Rag Project**
 
-**Methodologies**
+### Methodologies
 
 ### Ingestion Pipeline
 
@@ -86,7 +86,7 @@ Includes detailed information about supplier contracts, such as:
 
 Llama3-groq-70b-8192-tool-use-preview is better performing model. 
 
-### Interface and Ingestion
+### Interface Pipeline
 
 Supply-Chain-Management/supply_chain_management/
 
@@ -126,7 +126,7 @@ Supply-Chain-Management/supply_chain_management/
      - `POST /question`: Handles a question by calling the `rag` function and saving the conversation to the database.
      - `POST /feedback`: Handles feedback for a conversation and saves it to the database.
 
-### Implementation Steps
+### Implementation Steps to run the application
 
 #### 1. Dependency Management
 
@@ -236,9 +236,22 @@ pipenv run python cli.py
 
 
 
-## Monitoring
+### Monitoring
 
-Grafana for monitoring the application 
+### Grafana
+
+Building a monitoring dashboard in Grafana provides:
+
+1. **Real-Time Monitoring**: Track system performance and detect issues early.
+2. **Performance Tracking**: Monitor response times and resource usage.
+3. **Historical Analysis**: Analyze trends and review past incidents.
+4. **User Feedback Integration**: Assess user satisfaction and quality of responses.
+5. **Alerting and Notifications**: Set up alerts for timely issue management.
+6. **Improved Decision-Making**: Make data-driven decisions on scaling and optimization.
+7. **Enhanced Collaboration**: Share insights and facilitate team discussions.
+8. **Customization and Flexibility**: Create tailored dashboards and integrate multiple data sources.
+
+Grafana helps maintain system health, optimize performance, and ensure timely responses to issues.
 
 It's accessible at [localhost:3000](http://localhost:3000):
 
@@ -250,27 +263,7 @@ It's accessible at [localhost:3000](http://localhost:3000):
 ![dashboard](https://github.com/user-attachments/assets/809aa2dd-33cb-4f78-9007-6f835df9fde7)
 
 
-### Insights
-
-
-#### What it Solves
-
-1. **Efficient Data Processing**: RAG and LLMs can handle large datasets and retrieve relevant information quickly, allowing for efficient data processing and analysis.
-2. **Enhanced Query Resolution**: These models can generate accurate and detailed answers to specific questions regarding supplier performance, compliance issues, cost metrics, and other key terms.
-3. **Improved Decision-Making**: By providing timely and precise insights, the analysis supports better decision-making processes, helping to address issues proactively.
-4. **Risk Identification and Management**: The analysis helps identify potential risks and suggests measures to mitigate them, ensuring a more resilient supply chain.
-5. **Strategic Negotiations**: Insights from the analysis can guide negotiation strategies with suppliers, focusing on key terms, compliance monitoring, and performance improvements.
-
-#### Benefits
-
-- **Operational Efficiency**: Streamlines the process of evaluating and managing supplier performance.
-- **Cost Savings**: Identifies areas for cost reduction and efficiency improvements.
-- **Risk Reduction**: Proactively addresses compliance and performance risks.
-- **Better Supplier Relationships**: Facilitates strategic negotiations and improves supplier relationships.
-
-By leveraging the power of RAG and LLMs, this analysis transforms the way supplier performance data is utilized, providing comprehensive insights and enhancing overall supply chain management.
-
-### Monitoring Dashboard
+### Insights on Monitoring Dashboard
 
 ### Response Time
 - **Response Time Graph**: The response time for the queries has been consistently low, mostly under 2 seconds, with one notable spike reaching slightly above 8 seconds around 17:00. This indicates the system generally responds quickly, but occasional delays may occur.
