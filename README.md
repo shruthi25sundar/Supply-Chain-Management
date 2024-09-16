@@ -331,12 +331,9 @@ The key components of the system are:
 3. **Feedback Loop Integration**:
    - Leverage user feedback stored in the database to continuously improve the RAG model. You could implement active learning techniques to use highly rated answers to refine the model's performance over time.
 
-4. **Cost Optimization**:
-   - Implement cost monitoring in real time using OpenAI's API to prevent overuse of tokens and reduce operating expenses. Currently, the cost calculation is manual and could be automated with usage caps or intelligent query handling to avoid unnecessary expenses.
-
-5. **User Interaction Personalization**:
+4. **User Interaction Personalization**:
    - Enhance the Flask API by personalizing responses based on user profiles or past queries. A recommendation system could suggest similar or follow-up questions to improve the user experience.
 
-6. **Scalability & Performance**:
+5. **Scalability & Performance**:
    - If the application grows in usage, consider scaling the database and search infrastructure to handle larger datasets and more concurrent users. A switch to cloud-based hosting solutions and distributed databases might be necessary for greater performance.
   
