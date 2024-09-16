@@ -227,15 +227,14 @@ Start the interactive CLI application:
 pipenv run python cli.py
 ```
 
-![image](https://github.com/user-attachments/assets/292361a2-e783-4f3a-b632-85af91bdb0ae)
+![image](https://github.com/user-attachments/assets/dae2ef2e-90dc-49c9-9adf-68be7c5d20bd)
+
+![image](https://github.com/user-attachments/assets/d4d0938c-7836-4b58-9943-0b98514d0eac)
+
+![image](https://github.com/user-attachments/assets/4d0785e9-8722-4bf0-8aa7-6e1ed1278197)
 
 
-
-]![image](https://github.com/user-attachments/assets/299b86ae-2719-4cca-a589-8cd99aacce52)
-
-
-
-![image](https://github.com/user-attachments/assets/c67f4fe2-1191-4ce1-b69e-a326070c4649)
+![image](https://github.com/user-attachments/assets/a80d745a-189c-4d38-8fb3-bd76263a96d9)
 
 
 ## Monitoring
