@@ -1,26 +1,36 @@
-### Supplier Performance Analysis
+# Supplier Performance Analysis Assistant
+
+## Overview
+This project focuses on using Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs) to enhance supplier performance evaluation. The application retrieves and processes large volumes of supplier data, helping organizations gain quick insights into supplier performance, compliance, cost metrics, and risk management.
 
 ![Supplier_management_image_Feb_17__1_](https://github.com/user-attachments/assets/fa6a82f9-1690-4f58-89ea-acfb27e23c82)
 
 
-### Purpose
-The primary goal of this analysis is to leverage Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs) to enhance the evaluation and management of supplier performance. By integrating advanced natural language processing techniques, the analysis aims to provide insightful and actionable answers to various queries related to suppliers, compliance issues, cost metrics, and other performance indicators.
+## Objective
+The aim is to build an end-to-end RAG project to streamline supplier performance analysis by:
 
-### Problem Statement
-Managing supplier performance involves handling vast amounts of data and addressing numerous factors that can impact the overall supply chain efficiency. Traditional methods of performance evaluation can be time-consuming and may not provide comprehensive insights. This analysis addresses the following challenges:
+1. Ingesting supplier contract data.
+2. Implementing a RAG system using a knowledge base and LLM.
+3. Evaluating the retrieval and RAG flow for relevance.
+4. Creating an interface for interacting with the application.
+5. Collecting user feedback and monitoring the system's performance.
 
-1. Data Overload: Large volumes of data from multiple suppliers need to be processed and analyzed efficiently.
-2. Complex Queries: Answering specific and complex questions about supplier performance, compliance, and risk management can be difficult with traditional methods.
-3. Timely Decision-Making: The need for quick and accurate decision-making based on the latest supplier data.
-4. Risk Mitigation: Identifying and mitigating risks related to compliance, quality issues, and supply chain disruptions.
+## Problem Statement
+Supplier performance management often requires analyzing large amounts of data. Traditional methods of performance evaluation are often inefficient, leading to delays in decision-making and a lack of actionable insights. This project tackles the following challenges:
 
-### What it Solves
-1. Efficient Data Processing: RAG and LLMs can handle large datasets and retrieve relevant information quickly, allowing for efficient data processing and analysis.
-2. Enhanced Query Resolution: These models can generate accurate and detailed answers to specific questions regarding supplier performance, compliance issues, cost metrics, and other key terms.
-3. Improved Decision-Making: By providing timely and precise insights, the analysis supports better decision-making processes, helping to address issues proactively.
-4. Risk Identification and Management: The analysis helps identify potential risks and suggests measures to mitigate them, ensuring a more resilient supply chain.
-5. Strategic Negotiations: Insights from the analysis can guide negotiation strategies with suppliers, focusing on key terms, compliance monitoring, and performance improvements.
+1. **Data Overload**: Supplier data comes in vast amounts, making it hard to analyze.
+2. **Complex Queries**: Specific supplier queries (e.g., cost, compliance, risk) are difficult to handle with traditional tools.
+3. **Quick Decision-Making**: There is a need for fast, reliable, and actionable insights.
+4. **Risk Identification**: Monitoring and mitigating risks related to suppliers' compliance, performance, and supply chain issues.
 
+## Solution
+This project implements a system that uses RAG and LLMs to efficiently retrieve and analyze supplier data. The solution offers:
+
+1. **Data Processing**: Automated data ingestion and indexing using in-memory search.
+2. **Enhanced Query Resolution**: LLMs generate specific answers from supplier data.
+3. **Improved Decision-Making**: Faster insights support timely and accurate decisions.
+4. **Risk Mitigation**: Automatically identify compliance risks and quality issues.
+5. **Strategic Insights**: Help businesses improve negotiation strategies with suppliers.
 
 ### Dataset Overview
 
@@ -32,10 +42,7 @@ Includes detailed information about supplier contracts, such as:
 3. Quality Issues, Supply Chain Disruptions, Increased Costs, Compliance and Legal Risks
 4. Missed Opportunities, Damaged Relationships, Quality Metrics, Delivery Metrics, Cost Metrics, Relationship Metrics
 
-### End to End Rag Project
-
-### Methodologies
-
+## Project Structure
 ### Ingestion Pipeline
 
 - Automated ingestion using a Python script to rename columns, convert text fields to strings, and index the documents using `minsearch`.
@@ -47,23 +54,18 @@ Includes detailed information about supplier contracts, such as:
 
 ### Retrieval Evaluation
 
-#### Approach 1: Minsearch with Boosting
+**Approach 1: Minsearch with Boosting**
+- Used boosting techniques to enhance search accuracy.
+- **Metrics**:
+  - Hit Rate: 93.7%
+  - Mean Reciprocal Rank (MRR): 93.4%
 
-1. **Ground Truth Data**: Loaded and split into validation and test sets.
-2. **Evaluation Metrics**: Hit Rate and Mean Reciprocal Rank (MRR).
-3. **Parameter Optimization**: Optimized boost parameters using random search to improve MRR.
-- Hit rate: 93.7%
-- MRR: 93.4%
-
-#### Approach 2: TF-IDF Vectorizer
-
-1. **Preprocessing**: Applied text preprocessing to the questions.
-2. **TF-IDF Vectorizer**: Configured with bi-grams, English stop words, and sublinear term frequency scaling.
-3. **Evaluation**: Evaluated TF-IDF retrieval approach using the same ground truth data.
-
-- Hit rate: 97.2%
-- MRR: 95.5%
-
+**Approach 2: TF-IDF Vectorizer**
+- Applied TF-IDF vectorizer with bi-grams for retrieval.
+- **Metrics**:
+  - Hit Rate: 97.2%
+  - MRR: 95.5%
+  
 **Result**: TF-IDF showed better performance in terms of Hit Rate and MRR.
 
 ### RAG Evaluation
@@ -86,7 +88,7 @@ Includes detailed information about supplier contracts, such as:
 
 Llama3-groq-70b-8192-tool-use-preview is better performing model. 
 
-### Interface Pipeline
+### Code Overview
 
 Supply-Chain-Management/supply_chain_management/
 
@@ -300,3 +302,51 @@ It's accessible at [localhost:3000](http://localhost:3000):
 - User feedback is largely positive, which suggests good performance in meeting user expectations.
 
 These insights suggest that the monitoring system is functioning effectively, providing timely and relevant information to users, with room for occasional improvements to address response time spikes and ensure even higher relevance in responses.
+
+### Technologies
+1. Python 3.12
+2. Minsearch for in memory full-text search
+3. GroqAI as an LLM
+4. Docker and Docker Compose for containerization
+5. Flask as the API interface - to be used by any other UX
+6. Grafana for monitoring and PostgreSQL as the backend for it
+
+### Additional Code Overview
+
+**6. app.py (Flask Web Application)**
+   - **Purpose**: Implements the main Flask web application to handle user interactions.
+   - **Routes**:
+     - `POST /question`: Accepts a user question, processes it using the Retrieval-Augmented Generation (RAG) system, and returns the generated answer. It also logs the conversation to the database for future reference.
+     - `POST /feedback`: Accepts feedback on a particular conversation and stores it in the database for analysis. 
+
+### Conclusion:
+
+The codebase for the **Supply-Chain-Management Assistant** application demonstrates a complete pipeline for a Retrieval-Augmented Generation (RAG) system. The system integrates data ingestion, RAG, database management, and a Flask-based web API. The core functionality revolves around retrieving relevant supplier contracts using a text-based search index and augmenting this with a language model to generate responses, then logging these interactions for further feedback analysis.
+
+The key components of the system are:
+1. **Data Ingestion (`ingest.py`)**: Indexing text data from supplier contracts.
+2. **Database Management (`db.py` and `db_prep.py`)**: Storing conversations and feedback.
+3. **RAG System (`rag.py`)**: Conducting search and generating relevant responses.
+4. **Web Application (`app.py`)**: Managing the user interface and API endpoints.
+
+### Next Steps for Improvement:
+
+1. **Improved Search Capabilities**:
+   - Enhance the text search index to allow more advanced querying features such as fuzzy matching, synonyms, and context-aware searches. Using tools like Elasticsearch or extending the current `minsearch` indexing with advanced NLP techniques (e.g., sentence embeddings) could improve retrieval accuracy.
+
+2. **Response Quality Enhancement**:
+   - Implement more sophisticated prompt engineering in `rag.py` to build more contextual prompts for the language model. For example, dynamically adjusting prompt length based on the complexity of the query or previous user interactions could improve answer quality.
+   - Fine-tune the language model based on domain-specific supplier contract data to improve its understanding of supply chain management topics.
+
+3. **Feedback Loop Integration**:
+   - Leverage user feedback stored in the database to continuously improve the RAG model. You could implement active learning techniques to use highly rated answers to refine the model's performance over time.
+
+4. **Cost Optimization**:
+   - Implement cost monitoring in real time using OpenAI's API to prevent overuse of tokens and reduce operating expenses. Currently, the cost calculation is manual and could be automated with usage caps or intelligent query handling to avoid unnecessary expenses.
+
+5. **User Interaction Personalization**:
+   - Enhance the Flask API by personalizing responses based on user profiles or past queries. A recommendation system could suggest similar or follow-up questions to improve the user experience.
+
+6. **Scalability & Performance**:
+   - If the application grows in usage, consider scaling the database and search infrastructure to handle larger datasets and more concurrent users. A switch to cloud-based hosting solutions and distributed databases might be necessary for greater performance.
+  
