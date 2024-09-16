@@ -42,23 +42,8 @@ def build_prompt(query, search_results):
     context = ""
     
     for doc in search_results:
-        context += (
-            f"- **Supplier_Type**: {doc['supplier_type']}\n"
-            f"  **Supplier_Name**: {doc['supplier_name']}\n"
-            f"  **Risk_Level**: {doc['risk_level']}\n"
-            f"  **Compliance_Issues**: {doc['compliance_issues']}\n"
-            f"  **Key_Terms**: {doc['key_terms']}\n"
-            f"  **Negotiate_Recommendation**: {doc['negotiate_recommendation']}\n"
-            f"  **Quality_Metrics**: {doc['quality_metrics']}\n"
-            f"  **Past_Performance**: {doc['past_performance']}\n"
-            f"  **Supply_Chain_Disruption**: {doc['supply_chain_disruption']}\n"
-            f"  **Cost_Metrics**: {doc['cost_metrics']}\n\n"
-        )
-    
-    prompt = (
-        f"QUESTION: {query}\n\n"
-        f"CONTEXT:\n{context}"
-    )
+        context += entry_template.format(**doc) + "\n\n"
+    prompt = prompt_template.format(question=query, context=context).strip()
     return prompt
 
 def llm(prompt, model='Llama3-groq-70b-8192-tool-use-preview'):
