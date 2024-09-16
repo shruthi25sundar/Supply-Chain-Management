@@ -130,6 +130,8 @@ Supply-Chain-Management/supply_chain_management/
 
 ## Implementation Steps to run the application
 
+Please find temporary GroqAPI key from .envrc_template.
+
 #### 1. Dependency Management
 
 First, install `pipenv` for dependency management:
