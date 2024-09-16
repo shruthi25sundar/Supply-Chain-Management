@@ -32,7 +32,7 @@ This project implements a system that uses RAG and LLMs to efficiently retrieve 
 4. **Risk Mitigation**: Automatically identify compliance risks and quality issues.
 5. **Strategic Insights**: Help businesses improve negotiation strategies with suppliers.
 
-### Dataset Overview
+## Dataset Overview
 
 **Supplier Contracts**:
 
@@ -88,7 +88,7 @@ Includes detailed information about supplier contracts, such as:
 
 Llama3-groq-70b-8192-tool-use-preview is better performing model. 
 
-### Code Overview
+## Code Overview
 
 Supply-Chain-Management/supply_chain_management/
 
@@ -128,7 +128,7 @@ Supply-Chain-Management/supply_chain_management/
      - `POST /question`: Handles a question by calling the `rag` function and saving the conversation to the database.
      - `POST /feedback`: Handles feedback for a conversation and saves it to the database.
 
-### Implementation Steps to run the application
+## Implementation Steps to run the application
 
 #### 1. Dependency Management
 
@@ -215,7 +215,7 @@ export POSTGRES_HOST=localhost
 python app.py
 ```
 
-### Using the Application
+## Using the Application
 
 **CLI**
 
@@ -236,9 +236,7 @@ pipenv run python cli.py
 ![image](https://github.com/user-attachments/assets/c67f4fe2-1191-4ce1-b69e-a326070c4649)
 
 
-
-
-### Monitoring
+## Monitoring
 
 ### Grafana
 
@@ -303,7 +301,7 @@ It's accessible at [localhost:3000](http://localhost:3000):
 
 These insights suggest that the monitoring system is functioning effectively, providing timely and relevant information to users, with room for occasional improvements to address response time spikes and ensure even higher relevance in responses.
 
-### Technologies
+## Technologies
 1. Python 3.12
 2. Minsearch for in memory full-text search
 3. GroqAI as an LLM
@@ -311,15 +309,7 @@ These insights suggest that the monitoring system is functioning effectively, pr
 5. Flask as the API interface - to be used by any other UX
 6. Grafana for monitoring and PostgreSQL as the backend for it
 
-### Additional Code Overview
-
-**6. app.py (Flask Web Application)**
-   - **Purpose**: Implements the main Flask web application to handle user interactions.
-   - **Routes**:
-     - `POST /question`: Accepts a user question, processes it using the Retrieval-Augmented Generation (RAG) system, and returns the generated answer. It also logs the conversation to the database for future reference.
-     - `POST /feedback`: Accepts feedback on a particular conversation and stores it in the database for analysis. 
-
-### Conclusion:
+## Conclusion:
 
 The codebase for the **Supply-Chain-Management Assistant** application demonstrates a complete pipeline for a Retrieval-Augmented Generation (RAG) system. The system integrates data ingestion, RAG, database management, and a Flask-based web API. The core functionality revolves around retrieving relevant supplier contracts using a text-based search index and augmenting this with a language model to generate responses, then logging these interactions for further feedback analysis.
 
@@ -329,7 +319,7 @@ The key components of the system are:
 3. **RAG System (`rag.py`)**: Conducting search and generating relevant responses.
 4. **Web Application (`app.py`)**: Managing the user interface and API endpoints.
 
-### Next Steps for Improvement:
+## Next Steps for Improvement:
 
 1. **Improved Search Capabilities**:
    - Enhance the text search index to allow more advanced querying features such as fuzzy matching, synonyms, and context-aware searches. Using tools like Elasticsearch or extending the current `minsearch` indexing with advanced NLP techniques (e.g., sentence embeddings) could improve retrieval accuracy.
