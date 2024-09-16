@@ -1,1 +1,11 @@
 export GROQ_API_KEY="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"
+
+APP_PORT=5000
+ 
+# PostgreSQL Configuration
+POSTGRES_HOST=postgres
+POSTGRES_DB=fact_supplier
+POSTGRES_USER=your_username
+POSTGRES_PASSWORD=your_password
+POSTGRES_PORT=5432
+ 
