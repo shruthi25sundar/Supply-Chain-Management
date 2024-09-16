@@ -15,34 +15,50 @@ def search(query):
     )
     return results
 
-prompt_template = """
-You're a contract advisor. Answer the QUESTION based on the CONTEXT from our supplier contracts database.
-Use only the facts from the CONTEXT when answering the QUESTION.
+# prompt_template = """
+# You're a contract advisor. Answer the QUESTION based on the CONTEXT from our supplier contracts database.
+# Use only the facts from the CONTEXT when answering the QUESTION.
 
-QUESTION: {question}
+# QUESTION: {question}
 
-CONTEXT:
-{context}
-""".strip()
+# CONTEXT:
+# {context}
+# """.strip()
 
-entry_template = """
-Supplier_Type: {supplier_type}
-Supplier_Name: {supplier_name}
-Risk_Level: {risk_level}
-Compliance_Issues: {compliance_issues}
-Key_Terms: {key_terms}
-Negotiate_Recommendation: {negotiate_recommendation}
-Quality_Metrics: {quality_metrics}
-Past_Performance: {past_performance}
-Supply_Chain_Disruption: {supply_chain_disruption}
-Cost_Metrics: {cost_metrics}
-""".strip()
+# entry_template = """
+# Supplier_Type: {supplier_type}
+# Supplier_Name: {supplier_name}
+# Risk_Level: {risk_level}
+# Compliance_Issues: {compliance_issues}
+# Key_Terms: {key_terms}
+# Negotiate_Recommendation: {negotiate_recommendation}
+# Quality_Metrics: {quality_metrics}
+# Past_Performance: {past_performance}
+# Supply_Chain_Disruption: {supply_chain_disruption}
+# Cost_Metrics: {cost_metrics}
+# """.strip()
 
 def build_prompt(query, search_results):
     context = ""
+    
     for doc in search_results:
-        context += entry_template.format(**doc) + "\n\n"
-    prompt = prompt_template.format(question=query, context=context).strip()
+        context += (
+            f"- **Supplier_Type**: {doc['supplier_type']}\n"
+            f"  **Supplier_Name**: {doc['supplier_name']}\n"
+            f"  **Risk_Level**: {doc['risk_level']}\n"
+            f"  **Compliance_Issues**: {doc['compliance_issues']}\n"
+            f"  **Key_Terms**: {doc['key_terms']}\n"
+            f"  **Negotiate_Recommendation**: {doc['negotiate_recommendation']}\n"
+            f"  **Quality_Metrics**: {doc['quality_metrics']}\n"
+            f"  **Past_Performance**: {doc['past_performance']}\n"
+            f"  **Supply_Chain_Disruption**: {doc['supply_chain_disruption']}\n"
+            f"  **Cost_Metrics**: {doc['cost_metrics']}\n\n"
+        )
+    
+    prompt = (
+        f"QUESTION: {query}\n\n"
+        f"CONTEXT:\n{context}"
+    )
     return prompt
 
 def llm(prompt, model='Llama3-groq-70b-8192-tool-use-preview'):
